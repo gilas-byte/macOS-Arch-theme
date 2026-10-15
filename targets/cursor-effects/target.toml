@@ -1,0 +1,38 @@
+name = "cursor-effects"
+description = "Efeitos no cursor (plugin próprio do KWin): estica no movimento, encolhe no clique, tela afunda e ondula (compila e instala com sudo)"
+order = 43
+packages = ["cmake", "extra-cmake-modules"]
+aur_packages = []
+detect = "command -v qdbus6"
+
+# Compila effects/tahoecursor e instala o .so em /usr/lib/qt6/plugins (precisa de sudo).
+# Recompila sempre que o código muda. Plugin novo só entra de verdade depois de logout/login:
+# recarregar com a sessão aberta pode deixar a versão antiga na memória do KWin.
+[[states]]
+name = "plugin tahoecursor"
+get = "targets/cursor-effects/state.sh get ${theme_id}"
+set = "targets/cursor-effects/state.sh set ${theme_id}"
+restore = "targets/cursor-effects/state.sh restore ${theme_id} \"$$THEME_VALUE\""
+value = "atualizado"
+default = "ausente"
+
+[[keys]]
+file = "kwinrc"
+group = "Plugins"
+key = "tahoecursorEnabled"
+value = "${cursor_effects_enabled}"
+
+[[keys]]
+file = "kwinrc"
+group = "Effect-tahoecursor"
+key = "StretchMax"
+value = "${cursor_effects_stretch_max}"
+
+[[keys]]
+file = "kwinrc"
+group = "Effect-tahoecursor"
+key = "StretchSpeed"
+value = "${cursor_effects_stretch_speed}"
+
+[[post]]
+cmd = "qdbus6 org.kde.KWin /KWin reconfigure"

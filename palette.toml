@@ -205,6 +205,14 @@ better_blur = true
 glass = false
 translucency = true
 
+# Efeitos no cursor (plugin effects/tahoecursor). stretch_max: quanto estica no movimento
+# (0.8 = até 1,8x); stretch_speed: px/s pra esticar ao máximo (menor = estica mais fácil).
+# Acima de ~1.5 de stretch_max fica estranho indo e voltando pros lados.
+[cursor_effects]
+enabled = true
+stretch_max = 0.8
+stretch_speed = 2300
+
 # Efeito Glass (kwin-effects-glass-git, AUR) no lugar do better-blur-dx: mesmo vidro da
 # [surface], mais a luz na borda (Liquid Glass). Força e refração vêm de [surface].
 [glass_effect]

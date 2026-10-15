@@ -1,0 +1,11 @@
+{
+    "KPlugin": {
+        "Authors": [{ "Name": "Gilas" }],
+        "Category": "Appearance",
+        "Description": "Cursor que estica no movimento, pula no clique, e tela que afunda e ondula onde você clica",
+        "EnabledByDefault": false,
+        "Id": "tahoecursor",
+        "License": "GPL",
+        "Name": "Tahoe Cursor"
+    }
+}
