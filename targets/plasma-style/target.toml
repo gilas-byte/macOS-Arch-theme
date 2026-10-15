@@ -1,0 +1,20 @@
+name = "plasma-style"
+description = "Plasma Style Tahoe: MacTahoe-Dark com o vidro da paleta"
+order = 45
+packages = []
+aur_packages = []
+detect = "command -v plasma-apply-desktoptheme"
+generate = "generate.py"
+
+[[files]]
+src = "templates/theme"
+dest = "~/.local/share/plasma/desktoptheme/${theme_name}"
+mode = "symlink"
+
+[[states]]
+name = "Plasma Style"
+get = "kreadconfig6 --file plasmarc --group Theme --key name"
+set = "targets/plasma-style/apply.sh \"$$THEME_VALUE\""
+value = "${kde_plasma_style}"
+default = "default"
+reapply_on_change = true

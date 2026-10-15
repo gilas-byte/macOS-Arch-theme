@@ -1,0 +1,146 @@
+/* Source of the theme lib for the Catppuccin userstyles. generate.py fills the @@...@@
+ * markers and writes templates/lib.less; the render fills the colors from palette.toml.
+ *
+ * Structure and every name (maps, mixins, --ctp-* variables) follow lib/std/v1.less of
+ * catppuccin/userstyles (MIT, Catppuccin Org): names are API, only values change. */
+
+/* A single flavor. The Catppuccin flavor names are aliases of it (a map entry cannot point
+ * at a sibling, hence the top-level rulesets), so styles that name a flavor directly
+ * (chess.com, google-photos, listenbrainz) resolve to it. `@flavor = latte` checks are
+ * always false now, which picks their dark branch, as intended. */
+/* deno-fmt-ignore */
+@tahoe-palette: { @rosewater: ${web_rosewater}; @flamingo: ${web_flamingo}; @pink: ${sem_pink}; @mauve: ${sem_purple}; @red: ${sem_red}; @maroon: ${web_maroon}; @peach: ${sem_orange}; @yellow: ${sem_yellow}; @green: ${sem_green}; @teal: ${sem_teal}; @sky: ${web_sky}; @sapphire: ${web_sapphire}; @blue: ${sem_blue}; @lavender: ${web_lavender}; @text: ${fg_primary}; @subtext1: ${web_subtext1}; @subtext0: ${fg_secondary}; @overlay2: ${web_overlay2}; @overlay1: ${web_overlay1}; @overlay0: ${fg_tertiary}; @surface2: ${web_surface2}; @surface1: ${bg_control}; @surface0: ${bg_elevated}; @base: ${bg_content}; @mantle: ${web_mantle}; @crust: ${web_crust}; @primary: ${accent_primary}; };
+
+@catppuccin: {
+  @tahoe: @tahoe-palette;
+  @latte: @tahoe-palette;
+  @frappe: @tahoe-palette;
+  @macchiato: @tahoe-palette;
+  @mocha: @tahoe-palette;
+};
+
+/* deno-fmt-ignore */
+@tahoe-filters: { @rosewater: brightness(0) saturate(100%) invert(84%) sepia(25%) saturate(1607%) hue-rotate(293deg) brightness(103%) contrast(89%); @flamingo: brightness(0) saturate(100%) invert(61%) sepia(36%) saturate(1906%) hue-rotate(306deg) brightness(96%) contrast(102%); @pink: brightness(0) saturate(100%) invert(34%) sepia(95%) saturate(2889%) hue-rotate(328deg) brightness(101%) contrast(101%); @mauve: brightness(0) saturate(100%) invert(54%) sepia(67%) saturate(5363%) hue-rotate(251deg) brightness(101%) contrast(90%); @red: brightness(0) saturate(100%) invert(41%) sepia(32%) saturate(6771%) hue-rotate(339deg) brightness(101%) contrast(101%); @maroon: brightness(0) saturate(100%) invert(42%) sepia(86%) saturate(3300%) hue-rotate(332deg) brightness(98%) contrast(110%); @peach: brightness(0) saturate(100%) invert(71%) sepia(16%) saturate(6796%) hue-rotate(349deg) brightness(103%) contrast(109%); @yellow: brightness(0) saturate(100%) invert(91%) sepia(15%) saturate(5890%) hue-rotate(349deg) brightness(105%) contrast(103%); @green: brightness(0) saturate(100%) invert(67%) sepia(48%) saturate(788%) hue-rotate(74deg) brightness(97%) contrast(83%); @teal: brightness(0) saturate(100%) invert(83%) sepia(54%) saturate(2489%) hue-rotate(153deg) brightness(94%) contrast(86%); @sky: brightness(0) saturate(100%) invert(81%) sepia(14%) saturate(1357%) hue-rotate(144deg) brightness(92%) contrast(91%); @sapphire: brightness(0) saturate(100%) invert(56%) sepia(97%) saturate(1502%) hue-rotate(173deg) brightness(92%) contrast(105%); @blue: brightness(0) saturate(100%) invert(35%) sepia(79%) saturate(2293%) hue-rotate(196deg) brightness(101%) contrast(101%); @lavender: brightness(0) saturate(100%) invert(49%) sepia(90%) saturate(317%) hue-rotate(202deg) brightness(95%) contrast(95%); @text: brightness(0) saturate(100%) invert(100%) sepia(64%) saturate(507%) hue-rotate(194deg) brightness(109%) contrast(80%); @subtext1: brightness(0) saturate(100%) invert(89%) sepia(5%) saturate(95%) hue-rotate(201deg) brightness(88%) contrast(91%); @subtext0: brightness(0) saturate(100%) invert(78%) sepia(5%) saturate(214%) hue-rotate(202deg) brightness(83%) contrast(86%); @overlay2: brightness(0) saturate(100%) invert(64%) sepia(6%) saturate(205%) hue-rotate(201deg) brightness(87%) contrast(85%); @overlay1: brightness(0) saturate(100%) invert(55%) sepia(6%) saturate(221%) hue-rotate(202deg) brightness(88%) contrast(89%); @overlay0: brightness(0) saturate(100%) invert(44%) sepia(5%) saturate(328%) hue-rotate(202deg) brightness(95%) contrast(87%); @surface2: brightness(0) saturate(100%) invert(33%) sepia(5%) saturate(264%) hue-rotate(201deg) brightness(95%) contrast(86%); @surface1: brightness(0) saturate(100%) invert(27%) sepia(10%) saturate(107%) hue-rotate(201deg) brightness(91%) contrast(84%); @surface0: brightness(0) saturate(100%) invert(20%) sepia(6%) saturate(226%) hue-rotate(202deg) brightness(96%) contrast(89%); @base: brightness(0) saturate(100%) invert(6%) sepia(13%) saturate(0%) hue-rotate(332deg) brightness(98%) contrast(87%); @mantle: brightness(0) saturate(100%) invert(7%) sepia(5%) saturate(0%) hue-rotate(19deg) brightness(100%) contrast(94%); @crust: brightness(0) saturate(100%) invert(0%) sepia(21%) saturate(5806%) hue-rotate(173deg) brightness(60%) contrast(84%); @primary: brightness(0) saturate(100%) invert(35%) sepia(79%) saturate(2293%) hue-rotate(196deg) brightness(101%) contrast(101%); };
+
+@catppuccin-filters: {
+  @tahoe: @tahoe-filters;
+  @latte: @tahoe-filters;
+  @frappe: @tahoe-filters;
+  @macchiato: @tahoe-filters;
+  @mocha: @tahoe-filters;
+};
+
+#lib {
+  .palette() {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
+
+    @rosewater-filter: @catppuccin-filters[@@flavor][@rosewater];
+    @flamingo-filter: @catppuccin-filters[@@flavor][@flamingo];
+    @pink-filter: @catppuccin-filters[@@flavor][@pink];
+    @mauve-filter: @catppuccin-filters[@@flavor][@mauve];
+    @red-filter: @catppuccin-filters[@@flavor][@red];
+    @maroon-filter: @catppuccin-filters[@@flavor][@maroon];
+    @peach-filter: @catppuccin-filters[@@flavor][@peach];
+    @yellow-filter: @catppuccin-filters[@@flavor][@yellow];
+    @green-filter: @catppuccin-filters[@@flavor][@green];
+    @teal-filter: @catppuccin-filters[@@flavor][@teal];
+    @sky-filter: @catppuccin-filters[@@flavor][@sky];
+    @sapphire-filter: @catppuccin-filters[@@flavor][@sapphire];
+    @blue-filter: @catppuccin-filters[@@flavor][@blue];
+    @lavender-filter: @catppuccin-filters[@@flavor][@lavender];
+    @text-filter: @catppuccin-filters[@@flavor][@text];
+    @subtext1-filter: @catppuccin-filters[@@flavor][@subtext1];
+    @subtext0-filter: @catppuccin-filters[@@flavor][@subtext0];
+    @overlay2-filter: @catppuccin-filters[@@flavor][@overlay2];
+    @overlay1-filter: @catppuccin-filters[@@flavor][@overlay1];
+    @overlay0-filter: @catppuccin-filters[@@flavor][@overlay0];
+    @surface2-filter: @catppuccin-filters[@@flavor][@surface2];
+    @surface1-filter: @catppuccin-filters[@@flavor][@surface1];
+    @surface0-filter: @catppuccin-filters[@@flavor][@surface0];
+    @base-filter: @catppuccin-filters[@@flavor][@base];
+    @mantle-filter: @catppuccin-filters[@@flavor][@mantle];
+    @crust-filter: @catppuccin-filters[@@flavor][@crust];
+    @accent-filter: @catppuccin-filters[@@flavor][@@accentColor];
+  }
+
+  .defaults() {
+    // Dark only: this theme has no light variant.
+    color-scheme: dark;
+
+    ::selection {
+      background-color: fade(@accent, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+  }
+
+  .rgbify(@color) {
+    @rgb: red(@color), green(@color), blue(@color);
+  }
+
+  .hslify(@color) {
+    @raw: e(
+      %("%s, %s%, %s%", hue(@color), saturation(@color), lightness(@color))
+    );
+  }
+
+  .css-variables() {
+    --ctp-rosewater: @rosewater;
+    --ctp-flamingo: @flamingo;
+    --ctp-pink: @pink;
+    --ctp-mauve: @mauve;
+    --ctp-red: @red;
+    --ctp-maroon: @maroon;
+    --ctp-peach: @peach;
+    --ctp-yellow: @yellow;
+    --ctp-green: @green;
+    --ctp-teal: @teal;
+    --ctp-sky: @sky;
+    --ctp-sapphire: @sapphire;
+    --ctp-blue: @blue;
+    --ctp-lavender: @lavender;
+    --ctp-text: @text;
+    --ctp-subtext1: @subtext1;
+    --ctp-subtext0: @subtext0;
+    --ctp-overlay2: @overlay2;
+    --ctp-overlay1: @overlay1;
+    --ctp-overlay0: @overlay0;
+    --ctp-surface2: @surface2;
+    --ctp-surface1: @surface1;
+    --ctp-surface0: @surface0;
+    --ctp-base: @base;
+    --ctp-mantle: @mantle;
+    --ctp-crust: @crust;
+  }
+}

@@ -1,0 +1,13 @@
+name = "menubar"
+description = "Barra de menu: nome do app ativo em negrito (e Central de Controle, se ligada)"
+order = 61
+packages = []
+aur_packages = ["plasma6-applets-window-title"]
+detect = "test -d /usr/share/plasma/plasmoids/org.kde.windowtitle"
+
+[[states]]
+name = "extras da barra de menu"
+get = "python3 targets/menubar/menubar.py get ${menubar_control_center}"
+set = "python3 targets/menubar/menubar.py set \"${menubar_app_name_format}\" \"${menubar_app_name_desktop}\" ${menubar_app_name_bold} ${menubar_control_center}"
+restore = "python3 targets/menubar/menubar.py restore \"$$THEME_VALUE\""
+value = "applied"

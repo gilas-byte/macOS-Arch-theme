@@ -1,0 +1,21 @@
+name = "ghostty"
+description = "Ghostty com cara de Terminal.app: cores do macOS, SF Mono e respiro nas bordas"
+order = 70
+packages = ["ghostty"]
+aur_packages = []
+detect = "command -v ghostty"
+message = "Recarregue a config do Ghostty com ctrl+shift+, (ou abra uma janela nova)."
+
+# O bloco vai no fim do config.ghostty: no Ghostty a última linha vence, então ele passa por
+# cima do tema anterior sem apagar nada. Opacidade e blur ficam como o usuário deixou.
+# font-family é uma lista (repetir soma fonte reserva); o "" zera antes.
+# Ícones de Nerd Font continuam funcionando: o Ghostty traz os símbolos embutidos.
+[[files]]
+src = "templates/theme"
+dest = "~/.config/ghostty/themes/${theme_id}"
+mode = "symlink"
+
+[[files]]
+src = "templates/config-block"
+dest = "~/.config/ghostty/config.ghostty"
+mode = "managed-block"

@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="32" viewBox="0 0 64 32">
+  <rect id="button-normal" x="0.5" y="0.5" width="63" height="28" rx="${shape_radius_m}" fill="${bg_control}" stroke="${fg_separator}"/>
+  <circle id="close" cx="8" cy="8" r="6" fill="${traffic_close}"/>
+</svg>

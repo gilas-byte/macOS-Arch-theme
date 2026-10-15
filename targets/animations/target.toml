@@ -1,0 +1,22 @@
+name = "animations"
+description = "Minimizar com o Magic Lamp (gênio do macOS) no lugar do Squash"
+order = 42
+packages = []
+aur_packages = []
+detect = "command -v qdbus6"
+
+# Os dois efeitos são alternativos: liga um, desliga o outro.
+[[keys]]
+file = "kwinrc"
+group = "Plugins"
+key = "magiclampEnabled"
+value = "${behavior_magic_lamp}"
+
+[[keys]]
+file = "kwinrc"
+group = "Plugins"
+key = "squashEnabled"
+value = "${behavior_squash}"
+
+[[post]]
+cmd = "qdbus6 org.kde.KWin /KWin reconfigure"

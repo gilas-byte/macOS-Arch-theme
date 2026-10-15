@@ -1,0 +1,13 @@
+name = "layout"
+description = "Barra de menu sem \"mostrar área de trabalho\"; cria barra e Dock se faltarem"
+order = 60
+packages = []
+aur_packages = []
+detect = "qdbus6 org.kde.plasmashell /PlasmaShell org.freedesktop.DBus.Peer.Ping"
+
+[[states]]
+name = "layout do Plasma"
+get = "targets/layout/layout.sh get ${theme_id}"
+set = "targets/layout/layout.sh set ${theme_id} \"$$THEME_VALUE\""
+restore = "targets/layout/layout.sh restore ${theme_id} \"$$THEME_VALUE\""
+value = "applied"

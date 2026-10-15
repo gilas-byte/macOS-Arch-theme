@@ -1,0 +1,12 @@
+name = "lockscreen"
+description = "Tela de bloqueio com o wallpaper MacTahoe-Dark (o wallpaper vem do alvo wallpaper)"
+order = 86
+packages = []
+aur_packages = []
+detect = "command -v kreadconfig6"
+
+[[states]]
+name = "wallpaper do bloqueio"
+get = "targets/lockscreen/lockscreen.sh get"
+set = "targets/lockscreen/lockscreen.sh set \"$$THEME_VALUE\""
+value = "${kde_wallpaper}"

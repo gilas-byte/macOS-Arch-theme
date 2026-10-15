@@ -1,0 +1,16 @@
+[submodule "vendor/MacTahoe-kde"]
+	path = vendor/MacTahoe-kde
+	url = https://github.com/vinceliuice/MacTahoe-kde.git
+	shallow = true
+[submodule "vendor/MacTahoe-icon-theme"]
+	path = vendor/MacTahoe-icon-theme
+	url = https://github.com/vinceliuice/MacTahoe-icon-theme.git
+	shallow = true
+[submodule "vendor/MacTahoe-gtk-theme"]
+	path = vendor/MacTahoe-gtk-theme
+	url = https://github.com/vinceliuice/MacTahoe-gtk-theme.git
+	shallow = true
+[submodule "vendor/catppuccin-userstyles"]
+	path = vendor/catppuccin-userstyles
+	url = https://github.com/catppuccin/userstyles.git
+	shallow = true

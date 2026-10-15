@@ -1,0 +1,14 @@
+# Vidro Tahoe: o máximo que ainda passa no teste de contraste. Popups não descem de 0.78
+# (abaixo disso o texto secundário fica ilegível com uma janela branca atrás).
+# ./install.sh --profile vidro-tahoe   (volta com --profile padrao)
+[surface]
+menu_glass = 0.35
+window_glass = 0.30
+dialog_opacity = 0.78
+panel_veil = 0.08
+blur_strength = 10
+blur_saturation = 190
+blur_refraction = 4
+
+[glass_windows]
+titlebar_opacity = 70

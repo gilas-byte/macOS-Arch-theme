@@ -1,0 +1,22 @@
+name = "cursor"
+description = "Cursor do macOS (apple_cursor, baixado com sha256 conferido)"
+order = 40
+packages = ["curl"]
+aur_packages = []
+detect = "command -v plasma-apply-cursortheme"
+
+[[states]]
+name = "cursor"
+get = "kreadconfig6 --file kcminputrc --group Mouse --key cursorTheme"
+set = "targets/cursor/apply.sh \"$$THEME_VALUE\" ${fetch_cursor_url} ${fetch_cursor_sha256}"
+value = "${kde_cursor_theme}"
+default = "breeze_cursors"
+
+[[states]]
+name = "tamanho do cursor"
+get = "kreadconfig6 --file kcminputrc --group Mouse --key cursorSize"
+# O plasma-apply-cursortheme recusa reaplicar o tema ativo só para mudar o tamanho;
+# --notify avisa o KWin e o sync do GTK direto.
+set = "kwriteconfig6 --notify --file kcminputrc --group Mouse --key cursorSize \"$$THEME_VALUE\""
+value = "${kde_cursor_size}"
+default = "24"

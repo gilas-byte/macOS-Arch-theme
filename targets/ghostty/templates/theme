@@ -1,0 +1,24 @@
+# ${theme_name} — gerado a partir de palette.toml, não editar.
+background = ${bg_content}
+foreground = ${fg_primary}
+cursor-color = ${fg_primary}
+cursor-text = ${bg_content}
+selection-background = ${selection_bg}
+selection-foreground = ${selection_fg}
+
+palette = 0=${bg_elevated}
+palette = 1=${sem_red}
+palette = 2=${sem_green}
+palette = 3=${sem_yellow}
+palette = 4=${sem_blue}
+palette = 5=${sem_purple}
+palette = 6=${sem_teal}
+palette = 7=${fg_primary}
+palette = 8=${fg_tertiary}
+palette = 9=${ansi_bright_red}
+palette = 10=${ansi_bright_green}
+palette = 11=${ansi_bright_yellow}
+palette = 12=${ansi_bright_blue}
+palette = 13=${ansi_bright_purple}
+palette = 14=${ansi_bright_teal}
+palette = 15=#FFFFFF

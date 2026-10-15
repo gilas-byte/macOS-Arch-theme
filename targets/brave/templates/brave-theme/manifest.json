@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "${theme_name}",
+  "version": "1.0",
+  "description": "${theme_name} — macOS Tahoe escuro (cores do palette.toml).",
+  "theme": {
+    "colors": {
+      "frame": [${bg_window_r}, ${bg_window_g}, ${bg_window_b}],
+      "frame_inactive": [${bg_content_r}, ${bg_content_g}, ${bg_content_b}],
+      "toolbar": [${bg_header_r}, ${bg_header_g}, ${bg_header_b}],
+      "toolbar_text": [${fg_primary_r}, ${fg_primary_g}, ${fg_primary_b}],
+      "toolbar_button_icon": [${fg_secondary_r}, ${fg_secondary_g}, ${fg_secondary_b}],
+      "tab_text": [${fg_primary_r}, ${fg_primary_g}, ${fg_primary_b}],
+      "tab_background_text": [${fg_secondary_r}, ${fg_secondary_g}, ${fg_secondary_b}],
+      "bookmark_text": [${fg_primary_r}, ${fg_primary_g}, ${fg_primary_b}],
+      "ntp_background": [${bg_content_r}, ${bg_content_g}, ${bg_content_b}],
+      "ntp_text": [${fg_primary_r}, ${fg_primary_g}, ${fg_primary_b}],
+      "ntp_link": [${accent_primary_r}, ${accent_primary_g}, ${accent_primary_b}],
+      "omnibox_background": [${bg_content_r}, ${bg_content_g}, ${bg_content_b}],
+      "omnibox_text": [${fg_primary_r}, ${fg_primary_g}, ${fg_primary_b}],
+      "button_background": [${bg_control_r}, ${bg_control_g}, ${bg_control_b}]
+    }
+  }
+}

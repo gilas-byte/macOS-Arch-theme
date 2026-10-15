@@ -1,0 +1,15 @@
+name = "switcher"
+description = "Alt+Tab com cara de Cmd+Tab (visual Ícones grandes do KWin; atalho igual)"
+order = 43
+packages = []
+aur_packages = []
+detect = "command -v qdbus6"
+
+[[keys]]
+file = "kwinrc"
+group = "TabBox"
+key = "LayoutName"
+value = "${behavior_switcher_layout}"
+
+[[post]]
+cmd = "qdbus6 org.kde.KWin /KWin reconfigure"

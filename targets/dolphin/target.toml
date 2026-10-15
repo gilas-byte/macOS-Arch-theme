@@ -1,0 +1,27 @@
+name = "dolphin"
+description = "Dolphin com cara de Finder: abre em ícones, sidebar sem Remote e Recent"
+order = 65
+packages = ["attr"]
+aur_packages = []
+detect = "command -v dolphin"
+
+[[states]]
+name = "modo de exibição"
+get = "targets/dolphin/dolphin.sh view get"
+set = "targets/dolphin/dolphin.sh view set \"$$THEME_VALUE\""
+value = "${behavior_dolphin_view_mode}"
+default = "1"
+
+[[states]]
+name = "sidebar: Remote escondido"
+get = "targets/dolphin/dolphin.sh group get Remote"
+set = "targets/dolphin/dolphin.sh group set Remote \"$$THEME_VALUE\""
+value = "${behavior_dolphin_hide_remote}"
+default = "false"
+
+[[states]]
+name = "sidebar: Recent escondido"
+get = "targets/dolphin/dolphin.sh group get RecentlySaved"
+set = "targets/dolphin/dolphin.sh group set RecentlySaved \"$$THEME_VALUE\""
+value = "${behavior_dolphin_hide_recent}"
+default = "false"

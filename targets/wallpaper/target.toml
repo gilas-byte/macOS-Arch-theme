@@ -1,0 +1,12 @@
+name = "wallpaper"
+description = "Wallpaper MacTahoe-Dark na área de trabalho"
+order = 50
+packages = []
+aur_packages = []
+detect = "command -v plasma-apply-wallpaperimage"
+
+[[states]]
+name = "wallpaper"
+get = "targets/wallpaper/wallpaper.sh get"
+set = "targets/wallpaper/wallpaper.sh set \"$$THEME_VALUE\""
+value = "${kde_wallpaper}"

@@ -1,0 +1,32 @@
+name = "kvantum"
+description = "Kvantum Tahoe: desenho do MacTahoeDark com as cores da paleta"
+order = 35
+packages = ["kvantum"]
+aur_packages = []
+generate = "generate.py"
+
+[[files]]
+src = "templates/theme.kvconfig"
+dest = "~/.config/Kvantum/${theme_name}/${theme_name}.kvconfig"
+mode = "symlink"
+
+[[files]]
+src = "templates/theme.svg"
+dest = "~/.config/Kvantum/${theme_name}/${theme_name}.svg"
+mode = "symlink"
+
+[[states]]
+name = "tema Kvantum"
+get = "kreadconfig6 --file ~/.config/Kvantum/kvantum.kvconfig --group General --key theme"
+set = "targets/kvantum/apply.sh \"$$THEME_VALUE\""
+value = "${kde_kvantum_theme}"
+default = "KvFlat"
+
+[[keys]]
+file = "kdeglobals"
+group = "KDE"
+key = "widgetStyle"
+value = "${kde_widget_style}"
+
+[[post]]
+cmd = "dbus-send --session --type=signal /KGlobalSettings org.kde.KGlobalSettings.notifyChange int32:2 int32:0"

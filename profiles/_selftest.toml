@@ -1,0 +1,3 @@
+# Usado só pelo tests/selftest.sh: muda uma cor para provar que o dry-run não toca em build/.
+[accent]
+primary = "#FF00FF"

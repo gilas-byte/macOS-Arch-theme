@@ -1,0 +1,15 @@
+name = "klassy-glass"
+description = "Barra de título de vidro (Klassy) só nas janelas de [glass_windows] (Ghostty)"
+order = 27
+packages = []
+aur_packages = ["klassy-bin"]
+detect = "command -v kwriteconfig6"
+message = "O preset é uma cópia da config do Klassy de agora: se mudar o Klassy depois, rode ./uninstall.sh --only klassy-glass e ./install.sh --only klassy-glass."
+
+# O valor do state é a opacidade da barra; o set (re)cria preset e exceção.
+[[states]]
+name = "barra de vidro"
+get = "python3 targets/klassy-glass/klassy-glass.py get ${theme_name}"
+set = "python3 targets/klassy-glass/klassy-glass.py set ${theme_name} \"${glass_windows_classes}\" \"$$THEME_VALUE\""
+restore = "python3 targets/klassy-glass/klassy-glass.py restore ${theme_name} \"${glass_windows_classes}\" \"$$THEME_VALUE\""
+value = "${glass_windows_titlebar_opacity}"

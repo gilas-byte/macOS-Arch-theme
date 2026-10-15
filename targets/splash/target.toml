@@ -1,0 +1,13 @@
+name = "splash"
+description = "Splash do login: o do MacTahoe-Dark (maçã sobre o wallpaper)"
+order = 85
+packages = []
+aur_packages = []
+detect = "command -v ksplashqml"
+
+[[states]]
+name = "splash"
+get = "kreadconfig6 --file ksplashrc --group KSplash --key Theme"
+set = "targets/splash/apply.sh \"$$THEME_VALUE\""
+value = "${kde_splash}"
+default = "org.kde.breeze.desktop"

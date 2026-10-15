@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Service
+MimeType=all/allfiles;inode/directory;
+Actions=quicklook
+X-KDE-Priority=TopLevel
+
+[Desktop Action quicklook]
+Name=Pré-visualizar (Quick Look)
+Icon=view-preview
+Exec=flatpak run io.github.nyre221.kiview -s %f

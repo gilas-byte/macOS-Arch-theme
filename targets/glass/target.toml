@@ -1,0 +1,127 @@
+name = "glass"
+description = "Efeito Glass no lugar do better-blur-dx: o mesmo vidro com luz na borda (Liquid Glass)"
+order = 41
+packages = []
+aur_packages = ["kwin-effects-glass-git"]
+detect = "test -f /usr/lib/qt6/plugins/kwin/effects/plugins/glass.so"
+
+# Só a config do Glass (o plugin lê o grupo [Effect-blurplus], não [Effect-glass]). Qual efeito fica ligado é decidido em palette.toml [effects] e
+# aplicado pelo alvo blur.
+# Lista de janelas forçadas (BlurMatching/BlurNonMatching/WindowClasses) fica no padrão do
+# Glass: todas as janelas translúcidas.
+
+
+
+
+[[keys]]
+file = "kwinrc"
+group = "Effect-blurplus"
+key = "BlurStrength"
+value = "${surface_blur_strength}"
+
+[[keys]]
+file = "kwinrc"
+group = "Effect-blurplus"
+key = "DecorationBlurStrength"
+value = "${surface_blur_strength}"
+
+[[keys]]
+file = "kwinrc"
+group = "Effect-blurplus"
+key = "DockBlurStrength"
+value = "${surface_blur_strength}"
+
+[[keys]]
+file = "kwinrc"
+group = "Effect-blurplus"
+key = "NoiseStrength"
+value = "${surface_blur_noise}"
+
+[[keys]]
+file = "kwinrc"
+group = "Effect-blurplus"
+key = "Saturation"
+value = "${glass_effect_saturation}"
+
+[[keys]]
+file = "kwinrc"
+group = "Effect-blurplus"
+key = "RefractionStrength"
+value = "${surface_blur_refraction}"
+
+[[keys]]
+file = "kwinrc"
+group = "Effect-blurplus"
+key = "EdgeLighting"
+value = "${glass_effect_edge_lighting}"
+
+[[keys]]
+file = "kwinrc"
+group = "Effect-blurplus"
+key = "EdgeLightingDock"
+value = "${glass_effect_edge_lighting}"
+
+[[keys]]
+file = "kwinrc"
+group = "Effect-blurplus"
+key = "RimSpecular"
+value = "${glass_effect_rim_specular}"
+
+[[keys]]
+file = "kwinrc"
+group = "Effect-blurplus"
+key = "TopCornerRadius"
+value = "${glass_effect_corner_radius}"
+
+[[keys]]
+file = "kwinrc"
+group = "Effect-blurplus"
+key = "BottomCornerRadius"
+value = "${glass_effect_corner_radius}"
+
+[[keys]]
+file = "kwinrc"
+group = "Effect-blurplus"
+key = "MenuCornerRadius"
+value = "${glass_effect_corner_radius}"
+
+[[keys]]
+file = "kwinrc"
+group = "Effect-blurplus"
+key = "DockCornerRadius"
+value = "${glass_effect_corner_radius}"
+
+[[keys]]
+file = "kwinrc"
+group = "Effect-blurplus"
+key = "BlurDecorations"
+value = true
+
+[[keys]]
+file = "kwinrc"
+group = "Effect-blurplus"
+key = "BlurMenus"
+value = true
+
+[[keys]]
+file = "kwinrc"
+group = "Effect-blurplus"
+key = "BlurDocks"
+value = true
+
+[[keys]]
+file = "kwinrc"
+group = "Effect-blurplus"
+key = "IgnoreContentBlurRegion"
+value = true
+
+[[post]]
+cmd = "qdbus6 org.kde.KWin /KWin reconfigure"
+
+# Usa o canto que cada janela declara (barra de cima reta, dock/tooltip/Klassy com o canto
+# deles). Sem isso o Glass arredonda tudo com o mesmo raio e sobra canto quadrado ou torto.
+[[keys]]
+file = "kwinrc"
+group = "Effect-blurplus"
+key = "UseDeclaredCornerRadius"
+value = true

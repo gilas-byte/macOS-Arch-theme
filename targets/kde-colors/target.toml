@@ -1,0 +1,19 @@
+name = "kde-colors"
+description = "Esquema de cores do KDE (.colors) com as cores do macOS escuro"
+order = 20
+packages = []
+aur_packages = []
+detect = "command -v plasma-apply-colorscheme"
+
+[[files]]
+src = "templates/scheme.colors"
+dest = "~/.local/share/color-schemes/${color_scheme}.colors"
+mode = "copy"
+
+[[states]]
+name = "esquema de cores"
+get = "kreadconfig6 --file kdeglobals --group General --key ColorScheme"
+set = "targets/kde-colors/apply-scheme.sh \"$$THEME_VALUE\""
+value = "${color_scheme}"
+default = "BreezeDark"
+reapply_on_change = true

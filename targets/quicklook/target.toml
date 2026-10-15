@@ -1,0 +1,37 @@
+name = "quicklook"
+description = "Quick Look: pré-visualizar arquivos (Kiview, Flathub) pelo menu do botão direito do Dolphin"
+order = 66
+packages = ["flatpak"]
+aur_packages = []
+detect = "command -v flatpak"
+
+# Kiview no Flathub do usuário (sem sudo). Lê arquivos só para leitura e não tem rede.
+[[states]]
+name = "Kiview instalado"
+get = "flatpak info --user io.github.nyre221.kiview >/dev/null 2>&1 && echo installed || true"
+set = "flatpak install --user -y --noninteractive flathub io.github.nyre221.kiview"
+restore = "[ -n \"$$THEME_VALUE\" ] || flatpak uninstall --user -y --noninteractive io.github.nyre221.kiview"
+value = "installed"
+
+# Menus de contexto do Dolphin precisam ser executáveis (o template já é +x).
+[[files]]
+src = "templates/servicemenu.desktop"
+dest = "~/.local/share/kio/servicemenus/${theme_id}-quicklook.desktop"
+mode = "copy"
+
+# Atalho global (Meta+Espaço, palette.toml [behavior]) para o mesmo Kiview, no modo que lê a
+# seleção da janela do Dolphin em foco. Mesma forma que o KCM de atalhos personalizados usa.
+[[files]]
+src = "templates/shortcut.desktop"
+dest = "~/.local/share/applications/${theme_id}-quicklook.desktop"
+mode = "copy"
+
+[[keys]]
+file = "kglobalshortcutsrc"
+group = ["services", "${theme_id}-quicklook.desktop"]
+key = "_launch"
+value = "${behavior_quicklook_shortcut}"
+
+# O uninstall tira o atalho da config; ele some de vez no próximo login.
+[[post]]
+cmd = "targets/quicklook/register-shortcut.sh ${theme_id} ${theme_name} ${behavior_quicklook_shortcut}"

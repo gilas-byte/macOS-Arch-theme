@@ -1,0 +1,93 @@
+name = "blur"
+description = "Vidro médio: better-blur-dx em menus, popups, painel e dock; painel translúcido"
+order = 40
+packages = []
+aur_packages = ["kwin-effects-better-blur-dx"]
+detect = "command -v qdbus6"
+
+# Interruptores dos efeitos de blur (palette.toml [effects]); o blur padrão do KWin fica
+# desligado para não somar com eles.
+# A lista de janelas forçadas (BlurMatching, BlurNonMatching, WindowClasses) é do usuário
+# e não é tocada.
+
+[[keys]]
+file = "kwinrc"
+group = "Plugins"
+key = "better_blur_dxEnabled"
+value = "${effects_better_blur}"
+
+[[keys]]
+file = "kwinrc"
+group = "Plugins"
+key = "glassEnabled"
+value = "${effects_glass}"
+
+[[keys]]
+file = "kwinrc"
+group = "Plugins"
+key = "translucencyEnabled"
+value = "${effects_translucency}"
+
+[[keys]]
+file = "kwinrc"
+group = "Plugins"
+key = "blurEnabled"
+value = false
+
+[[keys]]
+file = "kwinrc"
+group = "Effect-better-blur-dx"
+key = "BlurStrength"
+value = "${surface_blur_strength}"
+
+[[keys]]
+file = "kwinrc"
+group = "Effect-better-blur-dx"
+key = "Saturation"
+value = "${surface_blur_saturation}"
+
+[[keys]]
+file = "kwinrc"
+group = "Effect-better-blur-dx"
+key = "NoiseStrength"
+value = "${surface_blur_noise}"
+
+[[keys]]
+file = "kwinrc"
+group = "Effect-better-blur-dx"
+key = "RefractionStrength"
+value = "${surface_blur_refraction}"
+
+[[keys]]
+file = "kwinrc"
+group = "Effect-better-blur-dx"
+key = "CornerRadius"
+value = "${shape_radius_m}"
+
+[[keys]]
+file = "kwinrc"
+group = "Effect-better-blur-dx"
+key = "BlurMenus"
+value = true
+
+[[keys]]
+file = "kwinrc"
+group = "Effect-better-blur-dx"
+key = "BlurDocks"
+value = true
+
+[[keys]]
+file = "kwinrc"
+group = "Effect-better-blur-dx"
+key = "BlurDecorations"
+value = true
+
+[[states]]
+name = "opacidade dos painéis"
+get = "targets/blur/panel-opacity.sh get"
+set = "targets/blur/panel-opacity.sh set \"$$THEME_VALUE\""
+value = "translucent"
+default = "adaptive"
+
+[[post]]
+cmd = "qdbus6 org.kde.KWin /KWin reconfigure"

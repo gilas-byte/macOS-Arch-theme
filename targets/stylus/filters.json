@@ -1,0 +1,109 @@
+{
+  "version": "spsa-1/20",
+  "colors": {
+    "#0A84FF": {
+      "filter": "brightness(0) saturate(100%) invert(35%) sepia(79%) saturate(2293%) hue-rotate(196deg) brightness(101%) contrast(101%)",
+      "loss": 0.667
+    },
+    "#141414": {
+      "filter": "brightness(0) saturate(100%) invert(0%) sepia(21%) saturate(5806%) hue-rotate(173deg) brightness(60%) contrast(84%)",
+      "loss": 1.357
+    },
+    "#191919": {
+      "filter": "brightness(0) saturate(100%) invert(7%) sepia(5%) saturate(0%) hue-rotate(19deg) brightness(100%) contrast(94%)",
+      "loss": 1.324
+    },
+    "#1E1E1E": {
+      "filter": "brightness(0) saturate(100%) invert(6%) sepia(13%) saturate(0%) hue-rotate(332deg) brightness(98%) contrast(87%)",
+      "loss": 0.051
+    },
+    "#25A6F0": {
+      "filter": "brightness(0) saturate(100%) invert(56%) sepia(97%) saturate(1502%) hue-rotate(173deg) brightness(92%) contrast(105%)",
+      "loss": 0.386
+    },
+    "#32D74B": {
+      "filter": "brightness(0) saturate(100%) invert(67%) sepia(48%) saturate(788%) hue-rotate(74deg) brightness(97%) contrast(83%)",
+      "loss": 1.356
+    },
+    "#3A3A3C": {
+      "filter": "brightness(0) saturate(100%) invert(20%) sepia(6%) saturate(226%) hue-rotate(202deg) brightness(96%) contrast(89%)",
+      "loss": 0.249
+    },
+    "#40C8E0": {
+      "filter": "brightness(0) saturate(100%) invert(83%) sepia(54%) saturate(2489%) hue-rotate(153deg) brightness(94%) contrast(86%)",
+      "loss": 0.9
+    },
+    "#4A4A4C": {
+      "filter": "brightness(0) saturate(100%) invert(27%) sepia(10%) saturate(107%) hue-rotate(201deg) brightness(91%) contrast(84%)",
+      "loss": 0.427
+    },
+    "#57575A": {
+      "filter": "brightness(0) saturate(100%) invert(33%) sepia(5%) saturate(264%) hue-rotate(201deg) brightness(95%) contrast(86%)",
+      "loss": 0.63
+    },
+    "#69CFE1": {
+      "filter": "brightness(0) saturate(100%) invert(81%) sepia(14%) saturate(1357%) hue-rotate(144deg) brightness(92%) contrast(91%)",
+      "loss": 0.455
+    },
+    "#6E6E73": {
+      "filter": "brightness(0) saturate(100%) invert(44%) sepia(5%) saturate(328%) hue-rotate(202deg) brightness(95%) contrast(87%)",
+      "loss": 0.297
+    },
+    "#7D7D82": {
+      "filter": "brightness(0) saturate(100%) invert(55%) sepia(6%) saturate(221%) hue-rotate(202deg) brightness(88%) contrast(89%)",
+      "loss": 0.576
+    },
+    "#8685EC": {
+      "filter": "brightness(0) saturate(100%) invert(49%) sepia(90%) saturate(317%) hue-rotate(202deg) brightness(95%) contrast(95%)",
+      "loss": 1.409
+    },
+    "#8D8D92": {
+      "filter": "brightness(0) saturate(100%) invert(64%) sepia(6%) saturate(205%) hue-rotate(201deg) brightness(87%) contrast(85%)",
+      "loss": 0.324
+    },
+    "#A1A1A6": {
+      "filter": "brightness(0) saturate(100%) invert(78%) sepia(5%) saturate(214%) hue-rotate(202deg) brightness(83%) contrast(86%)",
+      "loss": 0.296
+    },
+    "#BF5AF2": {
+      "filter": "brightness(0) saturate(100%) invert(54%) sepia(67%) saturate(5363%) hue-rotate(251deg) brightness(101%) contrast(90%)",
+      "loss": 1.473
+    },
+    "#C3C3C6": {
+      "filter": "brightness(0) saturate(100%) invert(89%) sepia(5%) saturate(95%) hue-rotate(201deg) brightness(88%) contrast(91%)",
+      "loss": 0.576
+    },
+    "#E5E5E5": {
+      "filter": "brightness(0) saturate(100%) invert(100%) sepia(64%) saturate(507%) hue-rotate(194deg) brightness(109%) contrast(80%)",
+      "loss": 1.696
+    },
+    "#F197A9": {
+      "filter": "brightness(0) saturate(100%) invert(84%) sepia(25%) saturate(1607%) hue-rotate(293deg) brightness(103%) contrast(89%)",
+      "loss": 1.182
+    },
+    "#F76B87": {
+      "filter": "brightness(0) saturate(100%) invert(61%) sepia(36%) saturate(1906%) hue-rotate(306deg) brightness(96%) contrast(102%)",
+      "loss": 1.085
+    },
+    "#FF375F": {
+      "filter": "brightness(0) saturate(100%) invert(34%) sepia(95%) saturate(2889%) hue-rotate(328deg) brightness(101%) contrast(101%)",
+      "loss": 0.107
+    },
+    "#FF4047": {
+      "filter": "brightness(0) saturate(100%) invert(42%) sepia(86%) saturate(3300%) hue-rotate(332deg) brightness(98%) contrast(110%)",
+      "loss": 2.475
+    },
+    "#FF453A": {
+      "filter": "brightness(0) saturate(100%) invert(41%) sepia(32%) saturate(6771%) hue-rotate(339deg) brightness(101%) contrast(101%)",
+      "loss": 0.517
+    },
+    "#FF9F0A": {
+      "filter": "brightness(0) saturate(100%) invert(71%) sepia(16%) saturate(6796%) hue-rotate(349deg) brightness(103%) contrast(109%)",
+      "loss": 0.194
+    },
+    "#FFD60A": {
+      "filter": "brightness(0) saturate(100%) invert(91%) sepia(15%) saturate(5890%) hue-rotate(349deg) brightness(105%) contrast(103%)",
+      "loss": 0.167
+    }
+  }
+}

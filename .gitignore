@@ -1,0 +1,6 @@
+build/
+__pycache__/
+*.pyc
+targets/kvantum/templates/
+targets/plasma-style/templates/
+targets/stylus/templates/import.json

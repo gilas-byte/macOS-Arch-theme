@@ -1,0 +1,50 @@
+name = "_selftest"
+description = "Alvo de teste: exercita todos os modos em /tmp"
+order = 0
+packages = []
+aur_packages = []
+
+[[files]]
+src = "templates/sample.conf"
+dest = "/tmp/${theme_id}-selftest/sample.conf"
+mode = "symlink"
+
+[[files]]
+src = "templates/sample.svg"
+dest = "/tmp/${theme_id}-selftest/sample.svg"
+mode = "copy"
+
+[[files]]
+src = "templates/block.conf"
+dest = "/tmp/${theme_id}-selftest/host.conf"
+mode = "managed-block"
+
+[[files]]
+src = "templates/block.css"
+dest = "/tmp/${theme_id}-selftest/host.css"
+mode = "managed-block"
+comment = "/*"
+position = "after-imports"
+
+[[keys]]
+file = "/tmp/${theme_id}-selftest/test.rc"
+group = ["Colors", "Nested"]
+key = "Accent"
+value = "${accent_primary_rgb}"
+
+[[keys]]
+file = "/tmp/${theme_id}-selftest/test.rc"
+group = "General"
+key = "font"
+transform = "font-family"
+value = "${font_ui}"
+
+[[states]]
+name = "marker"
+get = "cat /tmp/${theme_id}-selftest/state 2>/dev/null || true"
+set = "printf '%s' \"$$THEME_VALUE\" > /tmp/${theme_id}-selftest/state"
+restore = "if [ -n \"$$THEME_VALUE\" ]; then printf '%s' \"$$THEME_VALUE\" > /tmp/${theme_id}-selftest/state; else rm -f /tmp/${theme_id}-selftest/state; fi"
+value = "${theme_id}-on"
+
+[[post]]
+cmd = "echo '  (post do _selftest executado)'"

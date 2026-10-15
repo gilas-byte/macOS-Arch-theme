@@ -1,0 +1,3 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="${boot_bar_width}" height="${boot_bar_height}">
+ <rect width="${boot_bar_width}" height="${boot_bar_height}" rx="3" fill="${boot_bar_fill}"/>
+</svg>

@@ -1,0 +1,33 @@
+name = "gtk"
+description = "GTK3 e libadwaita (GTK4) com o MacTahoe-Dark"
+order = 55
+packages = ["sassc"]
+aur_packages = []
+detect = "command -v qdbus6"
+
+# gtk.css inteiro em modo copy: tira imports de outros temas (como um gtk.css de tema anterior)
+# e o backup guarda a versão anterior. O KDE pode recolocar o @import 'colors.css' ao trocar
+# o esquema de cores; o próximo install volta o arquivo ao normal.
+[[files]]
+src = "templates/gtk3.css"
+dest = "~/.config/gtk-3.0/gtk.css"
+mode = "copy"
+
+[[files]]
+src = "templates/gtk4.css"
+dest = "~/.config/gtk-4.0/gtk.css"
+mode = "copy"
+
+[[states]]
+name = "MacTahoe-gtk instalado"
+get = "test -d ~/.themes/${kde_gtk_theme}/gtk-4.0 && echo ${kde_gtk_theme} || true"
+set = "targets/gtk/install-gtk.sh \"$$THEME_VALUE\""
+restore = "true"
+value = "${kde_gtk_theme}"
+
+[[states]]
+name = "tema GTK3"
+get = "qdbus6 org.kde.kded6 /modules/gtkconfig org.kde.GtkConfig.gtkTheme"
+set = "qdbus6 org.kde.kded6 /modules/gtkconfig org.kde.GtkConfig.setGtkTheme \"$$THEME_VALUE\""
+value = "${kde_gtk_theme}"
+default = "Breeze"

@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=${theme_name}
+Description=${theme_name}: maçã branca e barra de progresso, como o boot do macOS
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/${theme_id}
+ScriptFile=/usr/share/plymouth/themes/${theme_id}/${theme_id}.script

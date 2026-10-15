@@ -1,0 +1,60 @@
+name = "fonts"
+description = "SF Pro na interface e SF Mono na monoespaçada (baixadas da Apple)"
+order = 10
+packages = ["7zip", "curl"]
+aur_packages = []
+detect = "command -v kwriteconfig6"
+
+# O tooling aplica as chaves antes dos states; o post (aviso aos apps) roda depois de tudo.
+[[states]]
+name = "fontes da Apple"
+get = "targets/fonts/apple-fonts.sh get ${theme_id} ${fetch_apple_fonts_url}"
+set = "targets/fonts/apple-fonts.sh set ${theme_id} ${fetch_apple_fonts_url} \"$$THEME_VALUE\""
+restore = "targets/fonts/apple-fonts.sh restore ${theme_id} ${fetch_apple_fonts_url} \"$$THEME_VALUE\""
+value = "installed"
+
+# transform = "font-family" troca só a família e mantém tamanho/peso atuais do usuário.
+[[keys]]
+file = "kdeglobals"
+group = "General"
+key = "font"
+transform = "font-family"
+value = "${font_ui}"
+
+[[keys]]
+file = "kdeglobals"
+group = "General"
+key = "menuFont"
+transform = "font-family"
+value = "${font_ui}"
+
+[[keys]]
+file = "kdeglobals"
+group = "General"
+key = "toolBarFont"
+transform = "font-family"
+value = "${font_ui}"
+
+[[keys]]
+file = "kdeglobals"
+group = "General"
+key = "smallestReadableFont"
+transform = "font-family"
+value = "${font_ui}"
+
+[[keys]]
+file = "kdeglobals"
+group = "WM"
+key = "activeFont"
+transform = "font-family"
+value = "${font_ui}"
+
+[[keys]]
+file = "kdeglobals"
+group = "General"
+key = "fixed"
+transform = "font-family"
+value = "${font_mono}"
+
+[[post]]
+cmd = "dbus-send --session --type=signal /KGlobalSettings org.kde.KGlobalSettings.notifyChange int32:1 int32:0"

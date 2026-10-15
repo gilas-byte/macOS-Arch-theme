@@ -1,0 +1,33 @@
+name = "flatpak"
+description = "Apps Flatpak com o tema GTK, os ícones e o cursor do macOS"
+order = 75
+packages = []
+aur_packages = []
+detect = "command -v flatpak"
+message = "Apps Flatpak abertos só pegam o tema depois de reabertos."
+
+# Overrides globais do usuário (equivale a flatpak override --user). Leitura só (:ro) das
+# pastas do tema; o gtk.css da libadwaita importa ~/.themes/<tema> por caminho relativo.
+[[keys]]
+file = "~/.local/share/flatpak/overrides/global"
+group = "Context"
+key = "filesystems"
+value = "xdg-config/gtk-3.0:ro;xdg-config/gtk-4.0:ro;~/.themes:ro;~/.local/share/icons:ro;"
+
+[[keys]]
+file = "~/.local/share/flatpak/overrides/global"
+group = "Environment"
+key = "GTK_THEME"
+value = "${kde_gtk_theme}"
+
+[[keys]]
+file = "~/.local/share/flatpak/overrides/global"
+group = "Environment"
+key = "XCURSOR_THEME"
+value = "${kde_cursor_theme}"
+
+[[keys]]
+file = "~/.local/share/flatpak/overrides/global"
+group = "Environment"
+key = "XCURSOR_SIZE"
+value = "${kde_cursor_size}"

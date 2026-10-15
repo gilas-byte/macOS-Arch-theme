@@ -1,0 +1,5 @@
+theme = ${theme_id}
+font-family = ""
+font-family = ${font_mono}
+window-padding-x = ${terminal_padding}
+window-padding-y = ${terminal_padding}

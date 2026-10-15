@@ -1,0 +1,10 @@
+# Vidro sutil: menus e popups quase opacos, sidebars opacas, blur leve, sem refração.
+# ./install.sh --profile vidro-sutil   (volta com --profile padrao)
+[surface]
+menu_glass = 0.10
+window_glass = 0.0
+dialog_opacity = 0.90
+panel_veil = 0.30
+blur_strength = 4
+blur_saturation = 140
+blur_refraction = 0

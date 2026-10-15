@@ -1,0 +1,3 @@
+/* ${theme_name}: libadwaita/GTK4 com o ${kde_gtk_theme} (~/.themes), modo escuro.
+   Arquivo gerenciado pelo tema ${theme_id}; o uninstall devolve a versão anterior. */
+@import url("../../.themes/${kde_gtk_theme}/gtk-4.0/gtk-dark.css");

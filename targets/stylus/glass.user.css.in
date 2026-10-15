@@ -1,0 +1,48 @@
+/* ==UserStyle==
+@name Vidro ${theme_name}
+@namespace github.com/tahoe-theme/${theme_id}/styles/vidro
+@version 1.0.0
+@description Barras fixas com vidro (blur + saturação), como o macOS. Experimental: desative se algum site quebrar.
+@author ${theme_name}
+@preprocessor default
+==/UserStyle== */
+
+/* Vidro = fundo escuro translúcido + o que rola por baixo borrado e saturado. */
+@-moz-document domain("youtube.com") {
+  ytd-masthead, ytd-masthead #background, #masthead-container.ytd-app {
+    background: transparent !important;
+  }
+  #frosted-glass, #masthead-container.ytd-app {
+    background: rgba(${bg_content_rgb}, ${web_glass_opacity}) !important;
+    backdrop-filter: blur(24px) saturate(180%) !important;
+  }
+}
+
+@-moz-document domain("github.com") {
+  .AppHeader, .js-sticky.is-stuck, .gh-header-sticky.is-stuck .sticky-content,
+  .sticky-file-header, .Overlay, .SelectMenu-modal {
+    background-color: rgba(${bg_content_rgb}, ${web_glass_opacity}) !important;
+    backdrop-filter: blur(24px) saturate(180%) !important;
+  }
+}
+
+@-moz-document domain("wikipedia.org") {
+  .vector-sticky-header {
+    background-color: rgba(${bg_content_rgb}, ${web_glass_opacity}) !important;
+    backdrop-filter: blur(24px) saturate(180%) !important;
+  }
+}
+
+@-moz-document domain("reddit.com") {
+  reddit-header-large, reddit-header-large header {
+    background-color: rgba(${bg_content_rgb}, ${web_glass_opacity}) !important;
+    backdrop-filter: blur(24px) saturate(180%) !important;
+  }
+}
+
+@-moz-document domain("google.com") {
+  #searchform, .sfbg {
+    background-color: rgba(${bg_content_rgb}, ${web_glass_opacity}) !important;
+    backdrop-filter: blur(24px) saturate(180%) !important;
+  }
+}

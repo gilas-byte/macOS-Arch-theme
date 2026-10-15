@@ -1,0 +1,222 @@
+# Fonte única da verdade do tema. Ver ARCHITECTURE.md.
+# Tokens viram placeholders ${secao_chave} nos templates (ex.: bg.window -> ${bg_window}).
+# Cores #RRGGBB ganham variantes: ${x_nohash}, ${x_rgb}, ${x_r}, ${x_g}, ${x_b}.
+# Valores no formato fn(...) são calculados pelo tooling (lighten, darken, mix).
+# Base: cores de sistema do macOS no modo escuro (só existe a variante escura).
+
+[theme]
+id = "tahoe"
+name = "Tahoe"
+
+# Fundos, do mais fundo ao mais elevado.
+[bg]
+content = "#1E1E1E"
+window = "#282828"
+header = "#323232"
+elevated = "#3A3A3C"
+control = "#4A4A4C"
+# Linhas alternadas de listas.
+alternate = "mix(bg.content, bg.header, 0.35)"
+
+# Texto: label, secondaryLabel, tertiaryLabel do macOS já compostos sobre bg.window.
+[fg]
+primary = "#E5E5E5"
+secondary = "#A1A1A6"
+tertiary = "#6E6E73"
+separator = "#3D3D3D"
+
+[accent]
+primary = "#0A84FF"
+on_primary = "#FFFFFF"
+hover = "lighten(accent.primary, 0.12)"
+pressed = "darken(accent.primary, 0.15)"
+
+[selection]
+bg = "#0058D0"
+bg_subtle = "#464646"
+fg = "#FFFFFF"
+
+# systemColors do macOS (dark).
+[sem]
+red = "#FF453A"
+orange = "#FF9F0A"
+yellow = "#FFD60A"
+green = "#32D74B"
+teal = "#40C8E0"
+blue = "#0A84FF"
+indigo = "#5E5CE6"
+purple = "#BF5AF2"
+pink = "#FF375F"
+gray = "#98989D"
+
+# Cores ANSI brilhantes (terminal, cores 8-15), derivadas das systemColors.
+[ansi]
+bright_red = "lighten(sem.red, 0.15)"
+bright_green = "lighten(sem.green, 0.15)"
+bright_yellow = "lighten(sem.yellow, 0.15)"
+bright_blue = "lighten(sem.blue, 0.15)"
+bright_purple = "lighten(sem.purple, 0.15)"
+bright_teal = "lighten(sem.teal, 0.15)"
+
+# Botões de janela (semáforos).
+[traffic]
+close = "#FF5F57"
+minimize = "#FEBC2E"
+zoom = "#28C840"
+inactive = "#4D4D4D"
+
+[shape]
+radius_s = 6
+radius_m = 10
+radius_window = 14
+
+# Vidro "médio": menus, popups, painel e dock com vidro; janelas opacas.
+[surface]
+# Kvantum, em fração TRANSPARENTE: menus de contexto dos apps (o MacTahoe usa 0.25) e
+# fundo das janelas (sidebar e toolbar viram vidro; listas e editores continuam opacos).
+menu_glass = 0.25
+window_glass = 0.15
+# Popups do Plasma (Krunner, notificações, calendário, bandeja) e dicas. O MacTahoe usa 0.65;
+# abaixo de ~0.76 o texto secundário fica ilegível com uma janela branca atrás (tooling check).
+dialog_opacity = 0.78
+# Barra do topo: véu branco por cima do blur. O MacTahoe usa 0.15.
+panel_veil = 0.15
+# better-blur-dx: força 1..15, saturação em % (o vibrancy do macOS satura bastante),
+# ruído 0..14 e refração (borda de "Liquid Glass") 0..30.
+blur_strength = 7
+blur_saturation = 170
+blur_noise = 1
+blur_refraction = 2
+
+[font]
+ui = "SF Pro Text"
+display = "SF Pro Display"
+mono = "SF Mono"
+
+# Nomes no KDE. Kvantum "Tahoe" é o MacTahoeDark recolorido pela paleta;
+# Plasma Style "Tahoe" é o MacTahoe-Dark com o vidro da paleta.
+[kde]
+widget_style = "kvantum"
+kvantum_theme = "Tahoe"
+plasma_style = "Tahoe"
+icon_theme = "MacTahoe-dark"
+cursor_theme = "macOS"
+# Tamanho do cursor (o apple_cursor tem 16 a 96; o padrão do KDE é 24). 28 em teste.
+cursor_size = 28
+wallpaper = "MacTahoe-Dark"
+# Splash entre o login e a área de trabalho (look-and-feel do MacTahoe, de vendor/).
+splash = "com.github.vinceliuice.MacTahoe-Dark"
+# Decoração: Klassy, botões na posição padrão do KDE (à direita).
+decoration_library = "org.kde.klassy"
+decoration_theme = "Klassy"
+# GTK3 e libadwaita (GTK4): MacTahoe-gtk-theme de vendor/, instalado em ~/.themes.
+gtk_theme = "MacTahoe-Dark"
+
+# Janelas com barra de título de vidro (Klassy): um preset igual à config atual do Klassy,
+# só que com a barra translúcida e borrada, aplicado às classes de janela abaixo.
+# A opacidade acompanha o background-opacity do Ghostty (0.8).
+[glass_windows]
+classes = "com\\.mitchellh\\.ghostty"
+titlebar_opacity = 80
+
+# Layout: barra de menu no topo + Dock flutuante embaixo. As alturas só valem
+# para painéis criados pelo tema (máquina nova); os existentes ficam como estão.
+[layout]
+# Mínimo possível com o Plasma Style do MacTahoe (as bordas do painel somam 32px).
+menubar_height = 32
+dock_height = 50
+
+# Barra de menu, extras: nome do app ativo em negrito (Window Title) logo depois da maçã e
+# Central de Controle (KDE Control Station) antes do relógio. Precisam dos pacotes do AUR
+# plasma6-applets-window-title e plasma6-applets-kde-control-station.
+[menubar]
+app_name_format = "%a"
+# Texto quando nenhuma janela está ativa (área de trabalho).
+app_name_desktop = "Área de Trabalho"
+app_name_bold = true
+# Central de Controle (KDE Control Station) antes do relógio: desligada por padrão.
+control_center = false
+
+# Comportamento.
+[behavior]
+# Minimizar com o "gênio" do macOS (Magic Lamp) no lugar do Squash. São alternativos:
+# só um pode estar ligado.
+magic_lamp = true
+squash = false
+# Dolphin parecido com o Finder: 0 = ícones (1 = detalhes, 2 = compacto).
+dolphin_view_mode = 0
+# Seções da sidebar do Dolphin escondidas (o Finder não tem Remote nem Recent).
+dolphin_hide_remote = true
+dolphin_hide_recent = true
+
+# Alt+Tab com cara de Cmd+Tab: visual "Ícones grandes" do KWin (o atalho não muda).
+switcher_layout = "big_icons"
+
+# Quick Look (Kiview): atalho novo, com uma janela do Dolphin em foco. Estava livre.
+quicklook_shortcut = "Meta+Space"
+
+# Terminal (Ghostty) com o espaço interno do Terminal.app.
+[terminal]
+padding = 10
+
+# Alvo stylus: slots da lib dos userstyles do Catppuccin sem token próprio. Os outros
+# apontam direto para bg.*, fg.* e sem.* (mapa em targets/stylus/generate.py).
+# mix(a, b, t): t é o peso de b.
+[web]
+# systemIndigo como texto dá 3.29:1 no fundo; 25% mais claro passa (5.22:1).
+lavender = "lighten(sem.indigo, 0.25)"
+rosewater = "mix(sem.pink, fg.primary, 0.55)"
+flamingo = "mix(sem.pink, fg.primary, 0.30)"
+maroon = "mix(sem.red, sem.pink, 0.35)"
+sky = "mix(sem.teal, fg.primary, 0.25)"
+sapphire = "mix(sem.teal, sem.blue, 0.5)"
+subtext1 = "mix(fg.secondary, fg.primary, 0.5)"
+overlay2 = "mix(fg.tertiary, fg.secondary, 0.6)"
+overlay1 = "mix(fg.tertiary, fg.secondary, 0.3)"
+surface2 = "mix(bg.control, fg.tertiary, 0.35)"
+mantle = "darken(bg.content, 0.18)"
+crust = "darken(bg.content, 0.35)"
+# Estilo extra "Vidro Tahoe": barras fixas de alguns sites com blur. Opacidade do fundo.
+glass_opacity = 0.72
+
+# Sites a incluir no import.json do Stylus (pastas em styles/ do upstream, ex.:
+# ["github", "youtube"]). Vazio = todos.
+[stylus]
+include = []
+
+# Boot (Plymouth): fundo preto, maçã branca e barra fina, como o boot do macOS.
+[boot]
+logo_size = 96
+bar_width = 220
+bar_height = 6
+# Distância entre o fim da maçã e a barra.
+bar_gap = 88
+background = "#000000"
+logo = "#FFFFFF"
+bar_track = "#3A3A3A"
+bar_fill = "#FFFFFF"
+
+# Qual efeito de blur do KWin fica ligado (só um por vez; o alvo blur é o dono dos
+# interruptores). O Glass pede o efeito Translucidez desligado. Trocar de motor: mudar aqui,
+# rodar ./install.sh --only blur,glass e FAZER LOGOUT/LOGIN: os dois são forks do mesmo efeito
+# e, trocados com a sessão aberta, brigam pela mesma config e o blur some de tudo.
+[effects]
+better_blur = true
+glass = false
+translucency = true
+
+# Efeito Glass (kwin-effects-glass-git, AUR) no lugar do better-blur-dx: mesmo vidro da
+# [surface], mais a luz na borda (Liquid Glass). Força e refração vêm de [surface].
+[glass_effect]
+edge_lighting = true
+rim_specular = true
+# Saturação em fator (1.7 = os 170% do better-blur-dx).
+saturation = 1.7
+corner_radius = 10
+
+# Downloads fixados (sha256 conferido). Fontes da Apple não têm hash fixo: a Apple
+# atualiza o .dmg sem mudar a URL.
+[fetch]
+cursor_url = "https://github.com/ful1e5/apple_cursor/releases/download/v2.0.1/macOS.tar.xz"
+cursor_sha256 = "9c6e5e13b068ce51a9e90a9abd6ce232ec7d25d4ceb05aa8ac76efbb99c76762"
+apple_fonts_url = "https://devimages-cdn.apple.com/design/resources/download"

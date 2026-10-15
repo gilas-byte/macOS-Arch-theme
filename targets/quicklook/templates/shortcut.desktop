@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Quick Look (${theme_name})
+Comment=Pré-visualiza o arquivo selecionado no Dolphin (Kiview)
+Icon=view-preview
+Exec=flatpak run io.github.nyre221.kiview --shortcut
+NoDisplay=true
+X-KDE-GlobalAccel-CommandShortcut=true

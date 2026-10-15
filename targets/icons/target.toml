@@ -1,0 +1,13 @@
+name = "icons"
+description = "Ícones MacTahoe (dark), instalados de vendor/ se faltarem"
+order = 30
+packages = []
+aur_packages = []
+detect = "test -x /usr/lib/plasma-changeicons"
+
+[[states]]
+name = "tema de ícones"
+get = "kreadconfig6 --file kdeglobals --group Icons --key Theme"
+set = "targets/icons/apply.sh \"$$THEME_VALUE\""
+value = "${kde_icon_theme}"
+default = "breeze-dark"

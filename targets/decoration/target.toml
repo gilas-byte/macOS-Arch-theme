@@ -1,0 +1,22 @@
+name = "decoration"
+description = "Barra de título: Klassy, botões na posição padrão (à direita)"
+order = 25
+packages = []
+aur_packages = ["klassy-bin"]
+detect = "command -v qdbus6"
+
+# Os botões não são definidos aqui: ficam no padrão do KDE (ou no que o usuário escolheu).
+[[keys]]
+file = "kwinrc"
+group = "org.kde.kdecoration2"
+key = "library"
+value = "${kde_decoration_library}"
+
+[[keys]]
+file = "kwinrc"
+group = "org.kde.kdecoration2"
+key = "theme"
+value = "${kde_decoration_theme}"
+
+[[post]]
+cmd = "qdbus6 org.kde.KWin /KWin reconfigure"

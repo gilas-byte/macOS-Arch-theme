@@ -1,0 +1,62 @@
+# ${theme_name}: boot estilo macOS. Gerado do palette.toml [boot]; não editar à mão.
+Window.SetBackgroundTopColor(${boot_background_r} / 255, ${boot_background_g} / 255, ${boot_background_b} / 255);
+Window.SetBackgroundBottomColor(${boot_background_r} / 255, ${boot_background_g} / 255, ${boot_background_b} / 255);
+
+cx = Window.GetX() + Window.GetWidth() / 2;
+cy = Window.GetY() + Window.GetHeight() / 2;
+
+logo.image = Image("logo.png");
+logo.sprite = Sprite(logo.image);
+logo.sprite.SetPosition(cx - logo.image.GetWidth() / 2, cy - logo.image.GetHeight() / 2 - ${boot_bar_gap} / 2, 10);
+
+bar_y = cy + logo.image.GetHeight() / 2 + ${boot_bar_gap} / 2;
+box.image = Image("progress_box.png");
+box.sprite = Sprite(box.image);
+box.sprite.SetPosition(cx - box.image.GetWidth() / 2, bar_y, 10);
+
+bar.image = Image("progress_bar.png");
+bar.sprite = Sprite();
+bar.sprite.SetPosition(cx - box.image.GetWidth() / 2, bar_y, 11);
+
+# No desligar o macOS não mostra barra.
+if (Plymouth.GetMode() == "shutdown" || Plymouth.GetMode() == "reboot") {
+    box.sprite.SetOpacity(0);
+}
+
+fun progress_callback(duration, progress) {
+    if (Plymouth.GetMode() == "shutdown" || Plymouth.GetMode() == "reboot") return;
+    width = Math.Int(bar.image.GetWidth() * progress);
+    if (width < ${boot_bar_height}) width = ${boot_bar_height};
+    bar.sprite.SetImage(bar.image.Scale(width, bar.image.GetHeight()));
+}
+Plymouth.SetBootProgressFunction(progress_callback);
+
+# Senha (disco criptografado): caixa no lugar da barra, com bolinhas.
+entry.image = Image("entry.png");
+entry.sprite = Sprite();
+bullet.image = Image("bullet.png");
+bullets = [];
+
+fun display_normal() {
+    entry.sprite.SetOpacity(0);
+    for (i = 0; bullets[i]; i++) bullets[i].SetOpacity(0);
+    box.sprite.SetOpacity(1);
+    bar.sprite.SetOpacity(1);
+}
+
+fun display_password(prompt, count) {
+    box.sprite.SetOpacity(0);
+    bar.sprite.SetOpacity(0);
+    entry.sprite.SetImage(entry.image);
+    entry.sprite.SetPosition(cx - entry.image.GetWidth() / 2, bar_y - 12, 20);
+    entry.sprite.SetOpacity(1);
+    for (i = 0; bullets[i]; i++) bullets[i].SetOpacity(0);
+    for (i = 0; i < count && i < 20; i++) {
+        if (!bullets[i]) bullets[i] = Sprite(bullet.image);
+        bullets[i].SetPosition(cx - entry.image.GetWidth() / 2 + 12 + i * 12, bar_y - 1, 21);
+        bullets[i].SetOpacity(1);
+    }
+}
+
+Plymouth.SetDisplayNormalFunction(display_normal);
+Plymouth.SetDisplayPasswordFunction(display_password);

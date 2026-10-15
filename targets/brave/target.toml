@@ -1,0 +1,18 @@
+name = "brave"
+description = "Brave: extensão de tema com as cores do macOS escuro"
+order = 80
+packages = []
+aur_packages = []
+detect = "command -v brave || command -v brave-browser || command -v brave-browser-stable"
+message = """
+O Brave não deixa instalar tema por fora. Para usar este tema:
+  1. abra brave://extensions
+  2. com o "Modo do desenvolvedor" ligado, clique em "Carregar sem compactação"
+  3. escolha ~/.local/share/${theme_id}/brave-theme
+Para voltar: Configurações > Aparência > Tema > "Restaurar padrão"."""
+
+[[files]]
+src = "templates/brave-theme"
+dest = "~/.local/share/${theme_id}/brave-theme"
+mode = "copy"
+ignore = ["Cached Theme.pak"]

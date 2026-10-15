@@ -1,0 +1,14 @@
+name = "plymouth"
+description = "Boot (Plymouth): maçã branca e barra fina sobre preto, como o macOS (precisa de sudo)"
+order = 90
+packages = ["plymouth", "librsvg"]
+aur_packages = []
+detect = "command -v plymouth-set-default-theme"
+
+# Sem terminal (ou sem sudo) o state só mostra o comando; o install seguinte tenta de novo.
+[[states]]
+name = "tema do Plymouth"
+get = "plymouth-set-default-theme"
+set = "targets/plymouth/state.sh \"$$THEME_VALUE\" ${theme_id}"
+value = "${theme_id}"
+default = "bgrt"
