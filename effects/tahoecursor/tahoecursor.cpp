@@ -4,6 +4,7 @@
 
 #include "tahoecursor.h"
 
+#include "compositor.h"
 #include "core/rendertarget.h"
 #include "core/renderbackend.h"
 #include "core/renderviewport.h"
@@ -444,23 +445,29 @@ GLShader *TahoeCursorEffect::ensureShader()
     return m_shader.get();
 }
 
-void TahoeCursorEffect::paintScreen(const RenderTarget &renderTarget, const RenderViewport &viewport, int mask, const Region &deviceRegion, LogicalOutput *screen)
+bool TahoeCursorEffect::paintScreen(const RenderTarget &renderTarget, const RenderViewport &viewport, int mask, const Region &deviceRegion, LogicalOutput *screen)
 {
     GLShader *shader = screenAnimating() ? ensureShader() : nullptr;
     OffscreenData *off = shader ? ensureOffscreen(renderTarget, viewport, screen) : nullptr;
     if (!off) {
-        effects->paintScreen(renderTarget, viewport, mask, deviceRegion, screen);
+        if (!effects->paintScreen(renderTarget, viewport, mask, deviceRegion, screen)) {
+            return false;
+        }
         if (drawsOwnCursor()) {
             paintWindCursor(renderTarget, viewport);
         }
-        return;
+        return true;
     }
 
     RenderTarget offTarget(off->framebuffer.get(), renderTarget.colorDescription());
     RenderViewport offViewport(viewport.renderRect(), viewport.scale(), offTarget, QPoint());
+    // KWin 6.8: paintScreen diz se pintou; se falhou (ex.: reset da GPU), para aqui.
     GLFramebuffer::pushFramebuffer(off->framebuffer.get());
-    effects->paintScreen(offTarget, offViewport, mask, deviceRegion, screen);
+    const bool painted = effects->paintScreen(offTarget, offViewport, mask, deviceRegion, screen);
     GLFramebuffer::popFramebuffer();
+    if (!painted) {
+        return false;
+    }
 
     const RectF rect = viewport.renderRect();
     const QPointF origin = rect.topLeft();
@@ -496,6 +503,7 @@ void TahoeCursorEffect::paintScreen(const RenderTarget &renderTarget, const Rend
     if (drawsOwnCursor()) {
         paintWindCursor(renderTarget, viewport);
     }
+    return true;
 }
 
 // ou superfície (apps X11, como o Brave com --ozone-platform=x11). Só roda quando o cursor
@@ -542,7 +550,9 @@ void TahoeCursorEffect::paintWindCursor(const RenderTarget &renderTarget, const 
             m_cursorFbo = std::make_unique<GLFramebuffer>(m_cursorTexture.get());
         }
     }
-    if (!m_windShader || !m_cursorFbo || !m_cursorFbo->valid()) {
+    // KWin 6.8: um renderer por GPU; o cursor vai na principal.
+    ItemRenderer *renderer = effects->scene()->renderer(Compositor::self()->primaryDevice());
+    if (!renderer || !m_windShader || !m_cursorFbo || !m_cursorFbo->valid()) {
         // sem como desenhar: volta pro efeito antigo em vez de sumir com o cursor
         m_windMode = false;
         QTimer::singleShot(0, this, [this]() {
@@ -557,7 +567,7 @@ void TahoeCursorEffect::paintWindCursor(const RenderTarget &renderTarget, const 
         GLFramebuffer::pushFramebuffer(m_cursorFbo.get());
         glClearColor(0, 0, 0, 0);
         glClear(GL_COLOR_BUFFER_BIT);
-        effects->scene()->renderer()->renderItem(target, cursorViewport, m_cursorItem.get(), 0, Region::infinite(), WindowPaintData(), {}, {});
+        renderer->renderItem(target, cursorViewport, m_cursorItem.get(), 0, Region::infinite(), WindowPaintData(), {}, {});
         GLFramebuffer::popFramebuffer();
     }
 
