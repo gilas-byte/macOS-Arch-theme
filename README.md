@@ -11,8 +11,7 @@ Projeto pessoal de tema para Arch Linux, criado com a ajuda do [Claude Code](htt
 
 > **Avisos**
 > - Só testado em Plasma 6 (KWin 6.8). Plasma 5 e GNOME não são suportados.
-> - O blur usa o `kwin-effects-better-blur-dx`, do AUR. Ele pode quebrar quando o KWin atualiza; se o blur sumir depois de um update, reinstale o pacote (`paru -S --rebuild kwin-effects-better-blur-dx`).
-> - Os efeitos do cursor (`effects/tahoecursor`) também quebram quando o KWin atualiza: o KWin só carrega plugin compilado para a versão exata dele. Depois de um update do KWin, rode `./install.sh --only cursor-effects` num terminal (ele percebe a versão nova, recompila e pede o sudo) e faça logout/login. Se a compilação falhar, a API do KWin mudou e o código do plugin precisa ser adaptado (foi o caso na 6.8). Para ver se é isso: `journalctl --user -b | grep "different version of KWin"`.
+> - O blur usa o `kwin-effects-better-blur-dx`, do AUR. Ele pode quebrar quando o KWin atualiza; se o blur sumir depois de um update, reinstale o pacote (`paru -S --rebuild kwin-effects-better-blur-dx`). Depois de qualquer update do KWin rode `tests/kwin-check.sh --compile`: ele diz se algum plugin (blur ou cursor) foi compilado para outra versão, se está carregado, e se o código do `tahoecursor` ainda compila (o KWin 6.8 mudou a API). Para testar o carregamento sem mexer na sessão: `tests/kwin-nested.sh`.
 > - Pacotes do AUR precisam de `paru` ou `yay` instalado.
 > - A maçã (boot e barra) e as fontes SF são marcas e arquivos da Apple. As fontes são baixadas do site da Apple na instalação e seguem a licença dela.
 
@@ -61,7 +60,6 @@ O perfil fica gravado: os próximos `./install.sh` usam o mesmo. Perfis são arq
 python3 -m tooling check     # só a checagem de contraste WCAG (inclui texto sobre vidro)
 python3 -m tooling render    # só renderiza templates em build/
 tests/selftest.sh            # prova render, dry-run, idempotência, backup e restore em /tmp
-tests/cursor-effects-check.sh # cursor-effects recompila quando o KWin muda de versão
 tests/stylus-check.py        # alvo stylus: lib, filtros, import.json, contraste (+ compila com less se houver)
 ```
 
@@ -104,7 +102,7 @@ Cada alvo é uma pasta em `targets/` com um `target.toml` e `templates/`. Format
 | `wallpaper` | MacTahoe-Dark. |
 | `layout` | Tira o "mostrar área de trabalho" da barra; cria barra e Dock em máquina nova. Cópia do layout anterior para o uninstall. |
 | `animations` | Minimizar com Magic Lamp no lugar do Squash. |
-| `cursor-effects` | Plugin próprio do KWin (`effects/tahoecursor`): pontas do cursor dobram com o "vento" do movimento (ou esticam, com `Motion=stretch`) e ele encolhe no clique, tela afunda e ondula onde você clica. Compila e instala com sudo; depois, logout/login. |
+| `cursor-effects` | Plugin próprio do KWin (`effects/tahoecursor`): pontas do cursor dobram com o "vento" do movimento (ou esticam, com `Motion=stretch`) e ele encolhe no clique, tela afunda e ondula onde você clica. Compila e instala em `~/.local/lib/qt6/plugins` (sem sudo; o KWin acha pela `QT_PLUGIN_PATH` de `~/.config/plasma-workspace/env/`); depois, logout/login. |
 | `dolphin` | Abre em ícones; sidebar sem Remote e Recent. |
 | `ghostty` | Tema `tahoe`, SF Mono e respiro nas bordas (bloco no fim do `config.ghostty`). |
 | `flatpak` | Overrides globais: tema GTK, ícones e cursor nos apps Flatpak. |

@@ -4,15 +4,16 @@
 
 #include "tahoecursor.h"
 
-#include "compositor.h"
 #include "core/rendertarget.h"
 #include "core/renderbackend.h"
 #include "core/renderviewport.h"
+#include "compositor.h"
 #include "cursor.h"
 #include "cursorsource.h"
 #include "effect/effecthandler.h"
 #include "input.h"
 #include "input_event.h"
+#include "pointer_input.h"
 #include "opengl/glutils.h"
 #include "scene/cursoritem.h"
 #include "scene/itemrenderer.h"
@@ -162,11 +163,22 @@ bool TahoeCursorEffect::screenAnimating() const
     return dent || ripple || lens;
 }
 
+// Jogo com o mouse travado/preso na janela, ou app que escondeu o cursor: não tem cursor
+// pra animar, e acordar o efeito ali só gasta GPU e tira o jogo do direct scanout.
+bool TahoeCursorEffect::mouseGone() const
+{
+    if (input()->pointer()->isConstrained()) {
+        return true;
+    }
+    const CursorSource *source = Cursors::self()->currentCursor()->source();
+    return !source || source->isBlank();
+}
+
 void TahoeCursorEffect::pointerMotion(PointerMotionEvent *event)
 {
     const QPointF delta = event->position - m_lastPos;
     m_lastPos = event->position;
-    if (event->warp) {
+    if (event->warp || mouseGone()) {
         return;
     }
     // a velocidade é medida por frame no tick(): mouse e monitor rodam em ritmos
@@ -178,6 +190,13 @@ void TahoeCursorEffect::pointerMotion(PointerMotionEvent *event)
 void TahoeCursorEffect::pointerButton(PointerButtonEvent *event)
 {
     if (event->button != Qt::LeftButton && event->button != Qt::RightButton && event->button != Qt::MiddleButton) {
+        return;
+    }
+    if (mouseGone()) {
+        // solta o que ficou apertado de antes, sem onda
+        m_pressed = 0;
+        m_clickScale.target = 1.0;
+        m_dent.target = 0.0;
         return;
     }
     if (event->state == PointerButtonState::Pressed) {
@@ -461,8 +480,8 @@ bool TahoeCursorEffect::paintScreen(const RenderTarget &renderTarget, const Rend
 
     RenderTarget offTarget(off->framebuffer.get(), renderTarget.colorDescription());
     RenderViewport offViewport(viewport.renderRect(), viewport.scale(), offTarget, QPoint());
-    // KWin 6.8: paintScreen diz se pintou; se falhou (ex.: reset da GPU), para aqui.
     GLFramebuffer::pushFramebuffer(off->framebuffer.get());
+    // KWin 6.8: paintScreen diz se pintou; se falhou (ex.: reset da GPU), para aqui.
     const bool painted = effects->paintScreen(offTarget, offViewport, mask, deviceRegion, screen);
     GLFramebuffer::popFramebuffer();
     if (!painted) {
@@ -550,9 +569,7 @@ void TahoeCursorEffect::paintWindCursor(const RenderTarget &renderTarget, const 
             m_cursorFbo = std::make_unique<GLFramebuffer>(m_cursorTexture.get());
         }
     }
-    // KWin 6.8: um renderer por GPU; o cursor vai na principal.
-    ItemRenderer *renderer = effects->scene()->renderer(Compositor::self()->primaryDevice());
-    if (!renderer || !m_windShader || !m_cursorFbo || !m_cursorFbo->valid()) {
+    if (!m_windShader || !m_cursorFbo || !m_cursorFbo->valid()) {
         // sem como desenhar: volta pro efeito antigo em vez de sumir com o cursor
         m_windMode = false;
         QTimer::singleShot(0, this, [this]() {
@@ -567,7 +584,10 @@ void TahoeCursorEffect::paintWindCursor(const RenderTarget &renderTarget, const 
         GLFramebuffer::pushFramebuffer(m_cursorFbo.get());
         glClearColor(0, 0, 0, 0);
         glClear(GL_COLOR_BUFFER_BIT);
-        renderer->renderItem(target, cursorViewport, m_cursorItem.get(), 0, Region::infinite(), WindowPaintData(), {}, {});
+        // KWin 6.8: o renderer é por dispositivo de render, e renderItem devolve bool ([[nodiscard]])
+        if (ItemRenderer *itemRenderer = effects->scene()->renderer(Compositor::self()->backend()->renderDevice())) {
+            [[maybe_unused]] const bool rendered = itemRenderer->renderItem(target, cursorViewport, m_cursorItem.get(), 0, Region::infinite(), WindowPaintData(), {}, {});
+        }
         GLFramebuffer::popFramebuffer();
     }
 

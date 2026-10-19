@@ -1,0 +1,9 @@
+[Unit]
+Description=Tahoe: vigia mudanças de pacotes (para checar o KWin)
+
+[Path]
+PathChanged=/var/lib/pacman/local
+Unit=tahoe-kwin-watch.service
+
+[Install]
+WantedBy=default.target

@@ -87,6 +87,7 @@ private:
     GLShader *ensureShader();
     void paintWindCursor(const RenderTarget &renderTarget, const RenderViewport &viewport);
     bool drawsOwnCursor() const;
+    bool mouseGone() const;
     RectF windCursorRect() const;
 
     // config

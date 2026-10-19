@@ -1,0 +1,10 @@
+[Unit]
+Description=Tahoe: recompila e confere os plugins do KWin depois de update
+StartLimitIntervalSec=0
+
+[Service]
+Type=oneshot
+TimeoutStartSec=45min
+Nice=10
+Environment=PATH=%h/.local/bin:%h/.hermes/bin:%h/.hermes/node/bin:/usr/local/bin:/usr/bin
+ExecStart=%h/Documents/tahoe-theme/deploy/kwin-watch/kwin-watch.sh

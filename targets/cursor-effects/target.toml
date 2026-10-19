@@ -1,13 +1,19 @@
 name = "cursor-effects"
-description = "Efeitos no cursor (plugin próprio do KWin): estica no movimento, encolhe no clique, tela afunda e ondula (compila e instala com sudo)"
+description = "Efeitos no cursor (plugin próprio do KWin): estica no movimento, encolhe no clique, tela afunda e ondula (compila e instala na pasta do usuário, sem sudo)"
 order = 43
 packages = ["cmake", "extra-cmake-modules"]
 aur_packages = []
 detect = "command -v qdbus6"
 
-# Compila effects/tahoecursor e instala o .so em /usr/lib/qt6/plugins (precisa de sudo).
-# Recompila sempre que o código muda. Plugin novo só entra de verdade depois de logout/login:
-# recarregar com a sessão aberta pode deixar a versão antiga na memória do KWin.
+# Compila effects/tahoecursor e instala o .so em ~/.local/lib/qt6/plugins (sem sudo). O KWin acha
+# a pasta por QT_PLUGIN_PATH (arquivo em ~/.config/plasma-workspace/env/). Recompila sempre que o
+# código muda OU que o KWin instalado mudou de versão. Plugin novo só entra de verdade depois de
+# logout/login: recarregar com a sessão aberta pode deixar a versão antiga na memória do KWin.
+[[files]]
+src = "templates/tahoe-plugins.sh"
+dest = "~/.config/plasma-workspace/env/tahoe-plugins.sh"
+mode = "copy"
+
 [[states]]
 name = "plugin tahoecursor"
 get = "targets/cursor-effects/state.sh get ${theme_id}"
