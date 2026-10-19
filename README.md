@@ -10,9 +10,9 @@ Tema macOS Tahoe (modo escuro) para **Arch Linux / CachyOS com KDE Plasma 6**. S
 Projeto pessoal de tema para Arch Linux, criado com a ajuda do [Claude Code](https://claude.com/claude-code): paleta, scripts de instalação, alvos de cada app e testes foram escritos em conjunto com o Claude, testados numa máquina CachyOS real.
 
 > **Avisos**
-> - Só testado em Plasma 6 (KWin 6.7). Plasma 5 e GNOME não são suportados.
+> - Só testado em Plasma 6 (KWin 6.8). Plasma 5 e GNOME não são suportados.
 > - O blur usa o `kwin-effects-better-blur-dx`, do AUR. Ele pode quebrar quando o KWin atualiza; se o blur sumir depois de um update, reinstale o pacote (`paru -S --rebuild kwin-effects-better-blur-dx`).
-> - Os efeitos do cursor (`effects/tahoecursor`) também quebram quando o KWin atualiza: o KWin só carrega plugin compilado para a versão exata dele. Para recompilar, na raiz do repo: `rm -rf build/_cmake-tahoecursor && cmake -S effects/tahoecursor -B build/_cmake-tahoecursor -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr && cmake --build build/_cmake-tahoecursor && sudo cmake --install build/_cmake-tahoecursor`, depois logout/login. Se a compilação falhar, a API do KWin mudou e o código do plugin precisa ser adaptado (foi o caso na 6.8). Para ver se é isso: `journalctl --user -b | grep "different version of KWin"`.
+> - Os efeitos do cursor (`effects/tahoecursor`) também quebram quando o KWin atualiza: o KWin só carrega plugin compilado para a versão exata dele. Depois de um update do KWin, rode `./install.sh --only cursor-effects` num terminal (ele percebe a versão nova, recompila e pede o sudo) e faça logout/login. Se a compilação falhar, a API do KWin mudou e o código do plugin precisa ser adaptado (foi o caso na 6.8). Para ver se é isso: `journalctl --user -b | grep "different version of KWin"`.
 > - Pacotes do AUR precisam de `paru` ou `yay` instalado.
 > - A maçã (boot e barra) e as fontes SF são marcas e arquivos da Apple. As fontes são baixadas do site da Apple na instalação e seguem a licença dela.
 
@@ -61,6 +61,7 @@ O perfil fica gravado: os próximos `./install.sh` usam o mesmo. Perfis são arq
 python3 -m tooling check     # só a checagem de contraste WCAG (inclui texto sobre vidro)
 python3 -m tooling render    # só renderiza templates em build/
 tests/selftest.sh            # prova render, dry-run, idempotência, backup e restore em /tmp
+tests/cursor-effects-check.sh # cursor-effects recompila quando o KWin muda de versão
 tests/stylus-check.py        # alvo stylus: lib, filtros, import.json, contraste (+ compila com less se houver)
 ```
 
