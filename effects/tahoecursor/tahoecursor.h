@@ -94,8 +94,8 @@ private:
     bool m_stretchEnabled = true;
     double m_stretchAmount = 1.0;
     bool m_bounceEnabled = true;
-    bool m_dentEnabled = true;
-    bool m_rippleEnabled = true;
+    bool m_dentEnabled = false; // tela afundar: desligado por padrão (ScreenPress=true liga)
+    bool m_rippleEnabled = false; // onda de rebote: desligada por padrão (Ripple=true liga)
     bool m_lensEnabled = false;
     double m_dentRadius = 140.0;
     double m_dentDepth = 1.0;

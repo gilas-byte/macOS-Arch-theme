@@ -116,8 +116,8 @@ void TahoeCursorEffect::reconfigure(ReconfigureFlags)
     m_stretchEnabled = g.readEntry("Stretch", true);
     m_stretchAmount = g.readEntry("StretchAmount", 1.0);
     m_bounceEnabled = g.readEntry("ClickBounce", true);
-    m_dentEnabled = g.readEntry("ScreenPress", true);
-    m_rippleEnabled = g.readEntry("Ripple", true);
+    m_dentEnabled = g.readEntry("ScreenPress", false);
+    m_rippleEnabled = g.readEntry("Ripple", false);
     m_lensEnabled = g.readEntry("MoveLens", false);
     m_dentRadius = g.readEntry("PressRadius", 140.0);
     m_dentDepth = g.readEntry("PressDepth", 1.0);

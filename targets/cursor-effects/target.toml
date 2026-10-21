@@ -1,5 +1,5 @@
 name = "cursor-effects"
-description = "Efeitos no cursor (plugin próprio do KWin): estica no movimento, encolhe no clique, tela afunda e ondula (compila e instala na pasta do usuário, sem sudo)"
+description = "Efeitos no cursor (plugin próprio do KWin): estica no movimento, encolhe no clique; tela afundar/ondular é opcional, desligado por padrão (compila e instala na pasta do usuário, sem sudo)"
 order = 43
 packages = ["cmake", "extra-cmake-modules"]
 aur_packages = []

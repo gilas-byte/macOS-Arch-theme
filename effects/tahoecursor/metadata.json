@@ -2,7 +2,7 @@
     "KPlugin": {
         "Authors": [{ "Name": "Gilas" }],
         "Category": "Appearance",
-        "Description": "Cursor que estica no movimento, pula no clique, e tela que afunda e ondula onde você clica",
+        "Description": "Cursor que estica no movimento e pula no clique (a tela que afunda e ondula é opcional: ScreenPress e Ripple)",
         "EnabledByDefault": false,
         "Id": "tahoecursor",
         "License": "GPL",

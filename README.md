@@ -102,7 +102,7 @@ Cada alvo é uma pasta em `targets/` com um `target.toml` e `templates/`. Format
 | `wallpaper` | MacTahoe-Dark. |
 | `layout` | Tira o "mostrar área de trabalho" da barra; cria barra e Dock em máquina nova. Cópia do layout anterior para o uninstall. |
 | `animations` | Minimizar com Magic Lamp no lugar do Squash. |
-| `cursor-effects` | Plugin próprio do KWin (`effects/tahoecursor`): pontas do cursor dobram com o "vento" do movimento (ou esticam, com `Motion=stretch`) e ele encolhe no clique, tela afunda e ondula onde você clica. Compila e instala em `~/.local/lib/qt6/plugins` (sem sudo; o KWin acha pela `QT_PLUGIN_PATH` de `~/.config/plasma-workspace/env/`); depois, logout/login. |
+| `cursor-effects` | Plugin próprio do KWin (`effects/tahoecursor`): pontas do cursor dobram com o "vento" do movimento (ou esticam, com `Motion=stretch`) e ele encolhe no clique (o quique). A tela que afunda e ondula onde você clica vem **desligada**; para ligar: `kwriteconfig6 --file kwinrc --group Effect-tahoecursor --key ScreenPress true` (e `Ripple true`). Compila e instala em `~/.local/lib/qt6/plugins` (sem sudo; o KWin acha pela `QT_PLUGIN_PATH` de `~/.config/plasma-workspace/env/`); depois, logout/login. |
 | `dolphin` | Abre em ícones; sidebar sem Remote e Recent. |
 | `ghostty` | Tema `tahoe`, SF Mono e respiro nas bordas (bloco no fim do `config.ghostty`). |
 | `flatpak` | Overrides globais: tema GTK, ícones e cursor nos apps Flatpak. |
